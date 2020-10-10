@@ -14,8 +14,8 @@ thres = int(sys.argv[1])
 nu = float(sys.argv[2])
 # fit the model, mice: -1, ele: 1
 def mice_outliers(num):
-    fileName1 = "/data/sym/one-class-svm/data/offline-5/dec-feature/caida-A-50W-{}.csv".format(num)
-    fileName2 = "/data/sym/one-class-svm/data/offline-5/bin-feature/caida-A-50W-{}.csv".format(num)
+    fileName1 = "/data/sym/one-class-svm/data/online/dec-feature/caida-A-50W-{}.csv".format(num)
+    fileName2 = "/data/sym/one-class-svm/data/online/bin-feature/caida-A-50W-{}.csv".format(num)
     df = pd.read_csv(fileName1)
     dfb = pd.read_csv(fileName2)
     # dropCol = []
@@ -108,7 +108,7 @@ if __name__ == '__main__':
 
     print("thres: ", thres)
     print("nu: ", nu)
-    for i in range(10):
+    for i in range(2, 10):
         print("cycle:", i)
         mice_outliers(i)
     # ele_outliers()

@@ -55,6 +55,8 @@ def render_csv_row(timeInfo, pkt_sc, fh_csv):
         l4_dport = udp_pkt_sc.dport
         tcp_window = 0
         tcp_flag = 0
+        udp_len = udp_pkt_sc.len
+        tcp_dataofs = 0
     elif ip_pkt_sc.haslayer('TCP'):
         tcp_pkt_sc = ip_pkt_sc[TCP]
         l4_payload_bytes = bytes(tcp_pkt_sc.payload)
@@ -64,6 +66,8 @@ def render_csv_row(timeInfo, pkt_sc, fh_csv):
         tcp_window = tcp_pkt_sc.window
         # tcp_flag = TCP_FLAG_MAP[str(tcp_pkt_sc.flags)]
         tcp_flag = pkt_sc[33]
+        tcp_dataofs = tcp_pkt_sc.dataofs
+        udp_len = 0
     else:
         # Currently not handling packets that are not UDP or TCP
         # print('Ignoring non-UDP/TCP packet')
@@ -83,7 +87,7 @@ def render_csv_row(timeInfo, pkt_sc, fh_csv):
     # print("pkt_time", pkt_time)
 
     # Each line of the CSV has this format
-    fmt = '{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}'
+    fmt = '{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}|{12}|{13}|{14}'
     # time srcIP srcPort dstIP dstPort protocol length
 
     print(fmt.format(pkt_time,                # {0}
@@ -92,7 +96,7 @@ def render_csv_row(timeInfo, pkt_sc, fh_csv):
                      dstIP,                   # {3}
                      l4_dport,                # {4}
                      l4_proto_name,           # {5}
-                     ip_tos, ip_flags, ip_ttl, tcp_flag, tcp_window, length),                 # {6}
+                     ip_ihl, ip_tos, ip_flags, ip_ttl, tcp_dataofs, tcp_flag, tcp_window, udp_len, length),                 # {6}
           file=fh_csv)
 
     return True
