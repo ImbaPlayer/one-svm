@@ -14,8 +14,6 @@ from scapy.utils import RawPcapReader
 from scapy.layers.l2 import Ether
 from scapy.layers.inet import IP, UDP, TCP
 
-ISIP = True
-TCP_FLAG_MAP = {'U':1, 'A':2, 'P':3, 'R':4, 'S':5, 'F':6, 'UA':7, 'PA':8, 'RA':9, 'SA':10, 'FA':11}
 #--------------------------------------------------
 
 def myrdpcap(filename, count=-1):
@@ -34,57 +32,44 @@ def render_csv_row(timeInfo, pkt_sc, fh_csv):
     scapy's RawPcapReader
     fh_csv is the csv file handle
     """
-    if ISIP:
-        ip_pkt_sc = IP(pkt_sc)
-    else:
-        ether_pkt_sc = Ether(pkt_sc)
-        if ether_pkt_sc is None:
-            return False
-        if not ether_pkt_sc.haslayer('IP'):
-            return False
-        ip_pkt_sc = ether_pkt_sc[IP]
+    # ether_pkt_sc = Ether(pkt_sc)
+    # if ether_pkt_sc is None:
+    #     return False
 
+    # if not ether_pkt_sc.haslayer(IP):
+    #     return False
+    # ip_pkt_sc = ether_pkt_sc[IP]       # <<<< Assuming Ethernet + IPv4 here
+    
+    ip_pkt_sc = IP(pkt_sc)
     if ip_pkt_sc.version != 4:
         return False
     proto = ip_pkt_sc.fields['proto']
-    if ip_pkt_sc.haslayer('UDP'):
+    if proto == 17 and ip_pkt_sc.haslayer('UDP'):
         udp_pkt_sc = ip_pkt_sc[UDP]
         l4_payload_bytes = bytes(udp_pkt_sc.payload)
         l4_proto_name = 'UDP'
         l4_sport = udp_pkt_sc.sport
         l4_dport = udp_pkt_sc.dport
-        tcp_window = 0
-        tcp_flag = 0
-    elif ip_pkt_sc.haslayer('TCP'):
+    elif proto == 6 and ip_pkt_sc.haslayer('TCP'):
         tcp_pkt_sc = ip_pkt_sc[TCP]
         l4_payload_bytes = bytes(tcp_pkt_sc.payload)
         l4_proto_name = 'TCP'
         l4_sport = tcp_pkt_sc.sport
         l4_dport = tcp_pkt_sc.dport
-        tcp_window = tcp_pkt_sc.window
-        # tcp_flag = TCP_FLAG_MAP[str(tcp_pkt_sc.flags)]
-        tcp_flag = pkt_sc[33]
     else:
         # Currently not handling packets that are not UDP or TCP
         # print('Ignoring non-UDP/TCP packet')
         return False
     srcIP = ip_pkt_sc.src
     dstIP = ip_pkt_sc.dst
-    length = len(pkt_sc)
-    # length = ip_pkt_sc.len
-    #add features
-    ip_ihl = ip_pkt_sc.ihl
-    ip_tos = ip_pkt_sc.tos
-    ip_len = ip_pkt_sc.len
-    ip_flags = pkt_sc[6] >> 5
-    ip_ttl = ip_pkt_sc.ttl
-
+    # length = len(pkt_sc)
+    length = ip_pkt_sc.len
     # pkt_time = timeInfo.sec + timeInfo.usec / (10**6)
     pkt_time = 0
     # print("pkt_time", pkt_time)
 
     # Each line of the CSV has this format
-    fmt = '{0}|{1}|{2}|{3}|{4}|{5}|{6}|{7}|{8}|{9}|{10}|{11}'
+    fmt = '{0}|{1}|{2}|{3}|{4}|{5}|{6}'
     # time srcIP srcPort dstIP dstPort protocol length
 
     print(fmt.format(pkt_time,                # {0}
@@ -93,7 +78,7 @@ def render_csv_row(timeInfo, pkt_sc, fh_csv):
                      dstIP,                   # {3}
                      l4_dport,                # {4}
                      l4_proto_name,           # {5}
-                     ip_tos, ip_flags, ip_ttl, tcp_flag, tcp_window, length),                 # {6}
+                     length),                 # {6}
           file=fh_csv)
 
     return True
@@ -171,7 +156,7 @@ def main():
 if __name__ == '__main__':
     main()
 
-# python pcap2csv.py --pcap /data/xgr/sketch_data/testbed-12jun.pcap --csv test-feature.csv
-#pcapFilePath = '/data/sym/pcap_data/univ1_trace/univ1_pt18'
-#python pcap2csv.py --pcap /data/sym/pcap_data/univ1_trace/univ1_pt18 --csv test-feature.csv
-# python pcap2csv_add.py --pcap /data/xgr/sketch_data/caida_dirA/equinix-nyc.dirA.20190117-130000.UTC.anon.pcap --csv /data/sym/one-class-svm/data/offline-all-len/packet-level/caida-A-50W-0.csv
+# python pcap2csv.py --pcap H:\exp_data\pcap_data\caida-50w-1.pcap --csv original.csv
+# python pcap2csv.py --pcap H:\exp_data\pcap_data\univ1_all.pcap --csv original-univ1.csv
+# python pcap2csv.py --pcap /data/xgr/sketch_data/caida_dirA/equinix-nyc.dirA.20190117-130000.UTC.anon.pcap --csv data/packet-level/caida-A-50W-1.csv
+# python pcap2csv.py --pcap /data/xgr/sketch_data/caida_dirA/equinix-nyc.dirA.20190117-130000.UTC.anon.pcap --csv /data/sym/one-class-svm/data/5+mean/packet-level/caida-A-50W-0.csv

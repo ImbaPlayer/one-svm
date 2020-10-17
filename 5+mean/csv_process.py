@@ -6,21 +6,19 @@ from datetime import datetime
 PACKET_NUMBER = 5
 
 def new_extract(num):
-    inputName = "/data/sym/one-class-svm/data/offline-all-len/packet-level/caida-A-50W-{}.csv".format(num)
-    # inputName = "original.csv"
-    saveName = "/data/sym/one-class-svm/data/offline-all-len/dec-feature/caida-A-50W-{}.csv".format(num)
-    # saveName = "1.csv"
+    inputName = "/data/sym/one-class-svm/data/5+mean/packet-level/caida-A-50W-{}.csv".format(num)
+    saveName = "/data/sym/one-class-svm/data/5+mean/dec-feature/caida-A-50W-{}.csv".format(num)
     #指定分隔符为/t
     # time srcIP srcPort dstIP dstPort protocol length
-    col_names = ["time", "srcIP", "srcPort", "dstIP", "dstPort", "protocol", "ip_tos", "ip_flags", "ip_ttl", "tcp_flag", "tcp_window", "length"]
+    col_names = ["time", "srcIP", "srcPort", "dstIP", "dstPort", "protocol", "length"]
     df = pd.read_csv(inputName, delimiter="|", names=col_names)
-    print(df)
+    # print(df)
     # print(df)
     mask = (df["protocol"]=="TCP") | (df["protocol"]=="IPv4") | (df["protocol"]=="UDP")
     tcp = df[mask]
     tcp = tcp.drop(["time"], axis=1)
     grouped=tcp.groupby(["srcIP", "srcPort", "dstIP", "dstPort", "protocol"])
-    result_col_names = ["srcIP", "srcPort", "dstIP", "dstPort", "protocol", "ip_tos", "ip_flags", "ip_ttl", "tcp_flag", "tcp_window",
+    result_col_names = ["srcIP", "srcPort", "dstIP", "dstPort", "protocol", 
                         "first", "second", "third", "fourth", "fifth",
                         "mean", "var", "min", "max", "flowSize"]
     new_df = pd.DataFrame(columns=result_col_names)
@@ -48,9 +46,9 @@ def new_extract(num):
         temp_df = pd.DataFrame([ori_list], columns=result_col_names)
         new_df = new_df.append(temp_df, ignore_index=True)
     print(new_df.shape)
-    print(new_df)
     new_df.to_csv(saveName, index=False)
-
+    #df = pd.read_csv(saveName)
+    #print(df)
 if __name__ == '__main__':
     a = datetime.now()
     print("start time", a)

@@ -92,3 +92,6 @@ weighted avg       0.71      0.75      0.73     13798
 
 end time 2020-10-15 14:20:40.646140
 duration 211
+
+
+对于offline-all，新的10的数据包中，length采用实际字节流的长度，而非ip.len

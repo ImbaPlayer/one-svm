@@ -8,10 +8,8 @@ from datetime import datetime
 
 
 def main(num):
-    fileName = "/data/sym/one-class-svm/data/offline-all-len/dec-feature/caida-A-50W-{}.csv".format(num)
-    saveName = "/data/sym/one-class-svm/data/offline-all-len/bin-feature/caida-A-50W-{}.csv".format(num)
-    # fileName = "1.csv"
-    # saveName = "2.csv"
+    fileName = "/data/sym/one-class-svm/data/5+mean/dec-feature/caida-A-50W-{}.csv".format(num)
+    saveName = "/data/sym/one-class-svm/data/5+mean/bin-feature/caida-A-50W-{}.csv".format(num)
     df = pd.read_csv(fileName)
     # print(df)
     df["srcAddr1"], df["srcAddr2"], df["srcAddr3"], df["srcAddr4"] = df["srcIP"].str.split(".", 3).str
@@ -69,27 +67,6 @@ def main(num):
     for col_name in statistic_names:
         temp_cols = [col_name + '-{}'.format(i) for i in range(32)]
         dfb[temp_cols] = df[col_name].apply(getBits(32))
-    
-    # ip_tos
-    temp_cols = ["ip_tos" + '-{}'.format(i) for i in range(8)]
-    dfb[temp_cols] = df["ip_tos"].apply(getBits(8))
-
-    #ip_flags
-    temp_cols = ["ip_flags" + '-{}'.format(i) for i in range(3)]
-    dfb[temp_cols] = df["ip_flags"].apply(getBits(3))
-
-    # ip_ttl
-    temp_cols = ["ip_ttl" + '-{}'.format(i) for i in range(8)]
-    dfb[temp_cols] = df["ip_ttl"].apply(getBits(8))
-
-    # tcp_flag
-    # temp_cols = ["tcp_flag" + '-{}'.format(i) for i in range(5)]
-    # dfb[temp_cols] = df["tcp_flag"].apply(getBits(5))
-
-    # tcp_window
-    temp_cols = ["tcp_window" + '-{}'.format(i) for i in range(16)]
-    dfb[temp_cols] = df["tcp_window"].apply(getBits(16))
-
     print(dfb.shape)
     dfb.to_csv(saveName, index=False)
 if __name__ == '__main__':
