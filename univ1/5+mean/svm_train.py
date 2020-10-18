@@ -14,8 +14,8 @@ thres = int(sys.argv[1])
 nu = float(sys.argv[2])
 # fit the model, mice: -1, ele: 1
 def mice_outliers(num):
-    fileName1 = "/data/sym/one-class-svm/data/count/dec-feature/caida-A-50W-{}.csv".format(num)
-    fileName2 = "/data/sym/one-class-svm/data/count/bin-feature/caida-A-50W-{}.csv".format(num)
+    fileName1 = "/data/sym/one-class-svm/data/univ1/5+mean/dec-feature/univ1-50W-{}.csv".format(1)
+    fileName2 = "/data/sym/one-class-svm/data/univ1/5+mean/bin-feature/univ1-50W-{}.csv".format(1)
     df = pd.read_csv(fileName1)
     dfb = pd.read_csv(fileName2)
     # dropCol = []
@@ -62,8 +62,8 @@ def mice_outliers(num):
 
 # fit the model, mice: 1, ele: -1
 def ele_outliers(num):
-    fileName1 = "/data/sym/one-class-svm/data/count/dec-feature/caida-A-50W-{}.csv".format(num)
-    fileName2 = "/data/sym/one-class-svm/data/count/bin-feature/caida-A-50W-{}.csv".format(num)
+    fileName1 = "/data/sym/one-class-svm/data/univ1/5+mean/dec-feature/univ1-50W-{}.csv".format(1)
+    fileName2 = "/data/sym/one-class-svm/data/univ1/5+mean/bin-feature/univ1-50W-{}.csv".format(1)
     df = pd.read_csv(fileName1)
     dfb = pd.read_csv(fileName2)
     
@@ -111,7 +111,7 @@ if __name__ == '__main__':
     for i in range(1):
         print("cycle:", i)
         mice_outliers(i)
-        # ele_outliers(i)
+        ele_outliers(i)
     
     b = datetime.now()
     print("end time", b)

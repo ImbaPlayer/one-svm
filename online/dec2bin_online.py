@@ -102,7 +102,7 @@ def main(num):
 if __name__ == '__main__':
     a = datetime.now()
     print("start time", a)
-    for i in range(2,10):
+    for i in range(11,12):
         main(i)
         print("finish", i)
     b = datetime.now()

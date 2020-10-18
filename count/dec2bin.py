@@ -8,8 +8,8 @@ from datetime import datetime
 
 
 def main(num):
-    fileName = "/data/sym/one-class-svm/data/5+mean/dec-feature/caida-A-50W-{}.csv".format(num)
-    saveName = "/data/sym/one-class-svm/data/5+mean/bin-feature/caida-A-50W-{}.csv".format(num)
+    fileName = "/data/sym/one-class-svm/data/count/dec-feature/caida-A-50W-{}.csv".format(num)
+    saveName = "/data/sym/one-class-svm/data/count/bin-feature/caida-A-50W-{}.csv".format(num)
     df = pd.read_csv(fileName)
     # print(df)
     df["srcAddr1"], df["srcAddr2"], df["srcAddr3"], df["srcAddr4"] = df["srcIP"].str.split(".", 3).str

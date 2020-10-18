@@ -8,10 +8,8 @@ from datetime import datetime
 
 
 def main(num):
-    fileName = "/data/sym/one-class-svm/data/5-tuple/dec-feature/caida-A-50W-{}.csv".format(1)
-    saveName = "/data/sym/one-class-svm/data/5-tuple/bin-feature/caida-A-50W-{}.csv".format(1)
-    # fileName = "1.csv"
-    # saveName = "2.csv"
+    fileName = "/data/sym/one-class-svm/data/univ1/5+mean/dec-feature/univ1-50W-{}.csv".format(1)
+    saveName = "/data/sym/one-class-svm/data/univ1/5+mean/bin-feature/univ1-50W-{}.csv".format(1)
     df = pd.read_csv(fileName)
     # print(df)
     df["srcAddr1"], df["srcAddr2"], df["srcAddr3"], df["srcAddr4"] = df["srcIP"].str.split(".", 3).str
@@ -52,11 +50,23 @@ def main(num):
     #portocol cols
     Proto_cols = ['Proto-%d'%i for i in range(3)]
     dfb[Proto_cols] = df['protocol'].apply(getProtoBits)
-
-    # first packet length
-    # First_cols = ['First-%d'%i for i in range(16)]
-    # dfb[First_cols] = df['length'].apply(getBits(16))
-
+    #Packet size cols
+    # Pkt1_cols = ['Pkt1-%d' % i for i in range(33)]
+    # dfb[Pkt1_cols] = df['first'].apply(getBits(33))
+    # Pkt2_cols = ['Pkt2-%d' % i for i in range(33)]
+    # dfb[Pkt2_cols] = df['second'].apply(getBits(33))
+    # Pkt3_cols = ['Pkt3-%d' % i for i in range(33)]
+    # dfb[Pkt3_cols] = df['third'].apply(getBits(33))
+    # Pkt4_cols = ['Pkt4-%d' % i for i in range(33)]
+    # dfb[Pkt4_cols] = df['fourth'].apply(getBits(33))
+    # Pkt4_cols = ['Pkt5-%d' % i for i in range(33)]
+    # dfb[Pkt4_cols] = df['fifth'].apply(getBits(33))
+    # statistical data cols
+    statistic_names = ["first", "second", "third", "fourth", "fifth",
+                        "mean", "var", "min", "max"]
+    for col_name in statistic_names:
+        temp_cols = [col_name + '-{}'.format(i) for i in range(32)]
+        dfb[temp_cols] = df[col_name].apply(getBits(32))
     print(dfb.shape)
     dfb.to_csv(saveName, index=False)
 if __name__ == '__main__':

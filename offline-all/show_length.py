@@ -19,13 +19,13 @@ def get_max(filePath):
 if __name__ == "__main__":
     filePath1 = "/data/sym/one-class-svm/data/5+mean/dec-feature/caida-A-50W-{}.csv".format(0)
     filePath2 = "/data/sym/one-class-svm/data/offline-all-len/dec-feature/caida-A-50W-{}.csv".format(0)
+    filePath3 = "/data/sym/one-class-svm/data/count/dec-feature/caida-A-50W-{}.csv".format(0)
     col_names1 = ["time", "srcIP", "srcPort", "dstIP", "dstPort", "protocol", "length"]
     col_names2 = ["time", "srcIP", "srcPort", "dstIP", "dstPort", "protocol", "ip_tos", "ip_flags", "ip_ttl", "tcp_flag", "tcp_window", "length"]
     # df1 = get_counts(filePath1, col_names1)
     # df2 = get_counts(filePath2, col_names2)
 
-    get_max(filePath1)
-    get_max(filePath2)
+    get_max(filePath3)
     # for i in range(df1.shape[0]):
     #     temp = df1.iloc[i]["flowSize"]
     #     if temp > 20000:

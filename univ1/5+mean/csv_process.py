@@ -6,8 +6,8 @@ from datetime import datetime
 PACKET_NUMBER = 5
 
 def new_extract(num):
-    inputName = "/data/sym/one-class-svm/data/count/packet-level/caida-A-50W-{}.csv".format(num)
-    saveName = "/data/sym/one-class-svm/data/count/dec-feature/caida-A-50W-{}.csv".format(num)
+    inputName = "/data/sym/one-class-svm/data/univ1/5+mean/packet-level/univ1-50W-{}.csv".format(1)
+    saveName = "/data/sym/one-class-svm/data/univ1/5+mean/dec-feature/univ1-50W-{}.csv".format(1)
     #指定分隔符为/t
     # time srcIP srcPort dstIP dstPort protocol length
     col_names = ["time", "srcIP", "srcPort", "dstIP", "dstPort", "protocol", "length"]
@@ -29,8 +29,7 @@ def new_extract(num):
         temp_var = int(group["length"].var(ddof=0))
         temp_min = group["length"].min()
         temp_max = group["length"].max()
-        # temp_len = group["length"].sum()
-        temp_len = len(group["length"])
+        temp_len = group["length"].sum()
         # print("statistics", [temp_mean, temp_var, temp_min, temp_max, temp_len])
         packet_length = group["length"].values.tolist()
         N_length = []

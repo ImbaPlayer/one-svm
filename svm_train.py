@@ -62,8 +62,8 @@ def mice_outliers(num):
 
 # fit the model, mice: 1, ele: -1
 def ele_outliers(num):
-    fileName1 = "/data/sym/one-class-svm/data/online/dec-feature/caida-A-50W-{}.csv".format(num)
-    fileName2 = "/data/sym/one-class-svm/data/online/bin-feature/caida-A-50W-{}.csv".format(num)
+    fileName1 = "/data/sym/one-class-svm/data/offline-5/dec-feature/caida-A-50W-{}.csv".format(num)
+    fileName2 = "/data/sym/one-class-svm/data/offline-5/bin-feature/caida-A-50W-{}.csv".format(num)
     df = pd.read_csv(fileName1)
     dfb = pd.read_csv(fileName2)
     
@@ -89,7 +89,7 @@ def ele_outliers(num):
     X_train_mice = X_train[y_train == 1]
 
     # use mice to fit the model mice: 1, ele: -1
-    clf = svm.OneClassSVM(nu=nu, kernel='rbf', gamma='auto')
+    clf = svm.OneClassSVM(nu=nu, kernel='rbf', gamma='scale')
     clf.fit(X_train_mice)
 
     # predict
@@ -108,10 +108,10 @@ if __name__ == '__main__':
 
     print("thres: ", thres)
     print("nu: ", nu)
-    for i in range(10):
+    for i in range(1):
         print("cycle:", i)
         mice_outliers(i)
-    # ele_outliers()
+        ele_outliers(i)
     
     b = datetime.now()
     print("end time", b)

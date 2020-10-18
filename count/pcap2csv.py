@@ -159,4 +159,4 @@ if __name__ == '__main__':
 # python pcap2csv.py --pcap H:\exp_data\pcap_data\caida-50w-1.pcap --csv original.csv
 # python pcap2csv.py --pcap H:\exp_data\pcap_data\univ1_all.pcap --csv original-univ1.csv
 # python pcap2csv.py --pcap /data/xgr/sketch_data/caida_dirA/equinix-nyc.dirA.20190117-130000.UTC.anon.pcap --csv data/packet-level/caida-A-50W-1.csv
-# python pcap2csv.py --pcap /data/xgr/sketch_data/caida_dirA/equinix-nyc.dirA.20190117-130000.UTC.anon.pcap --csv /data/sym/one-class-svm/data/5+mean/packet-level/caida-A-50W-0.csv
+# python pcap2csv.py --pcap /data/xgr/sketch_data/caida_dirA/equinix-nyc.dirA.20190117-130000.UTC.anon.pcap --csv /data/sym/one-class-svm/data/count/packet-level/caida-A-50W-0.csv

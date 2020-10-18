@@ -35,7 +35,7 @@ def new_extract(num):
 if __name__ == '__main__':
     a = datetime.now()
     print("start time", a)
-    for i in range(10):
+    for i in range(11,12):
         new_extract(i)
         print("finish", i)
     b = datetime.now()

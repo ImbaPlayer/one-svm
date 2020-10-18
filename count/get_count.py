@@ -6,11 +6,7 @@ from datetime import datetime
 PACKET_NUMBER = 5
 
 def new_extract(num):
-    inputName = "/data/sym/one-class-svm/data/5-tuple/packet-level/caida-A-50W-{}.csv".format(0)
-    saveName = "/data/sym/one-class-svm/data/5-tuple/dec-feature/caida-A-50W-{}.csv".format(1)
-
-    # inputName = "original.csv"
-    # saveName = "1.csv"
+    inputName = "/data/sym/one-class-svm/data/count/packet-level/caida-A-50W-{}.csv".format(num)
     #指定分隔符为/t
     # time srcIP srcPort dstIP dstPort protocol length
     col_names = ["time", "srcIP", "srcPort", "dstIP", "dstPort", "protocol", "length"]
@@ -20,18 +16,23 @@ def new_extract(num):
     mask = (df["protocol"]=="TCP") | (df["protocol"]=="IPv4") | (df["protocol"]=="UDP")
     tcp = df[mask]
     tcp = tcp.drop(["time"], axis=1)
-
     grouped=tcp.groupby(["srcIP", "srcPort", "dstIP", "dstPort", "protocol"])
-    # print(grouped["length"])
-    #计算数据包的数量
-    tcp["flowSize"] = grouped["length"].transform(sum)
 
-    grouped=tcp.groupby(["srcIP", "srcPort", "dstIP", "dstPort", "protocol"])
-    result = grouped.head(1)
-    result.to_csv(saveName, index=False)
-    #df = pd.read_csv(saveName)
-    #print(df)
+    tcp['count'] = grouped["length"].transform(len)
+    # ip.len
+    tcp['flowSize'] = grouped["length"].transform(sum)
+    first = grouped.head(1)
+    length = first['count']
+    ip_flow_size = first['flowSize']
+    for i in range(200):
+        print(first.iloc[i]['count'], first.iloc[i]['flowSize'])
 
+    max_length = length.max()
+    min_length = length.min()
+    mean_length = length.mean()
+    print("max length", max_length)
+    print(min_length)
+    print(mean_length)
 if __name__ == '__main__':
     a = datetime.now()
     print("start time", a)

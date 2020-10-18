@@ -108,7 +108,7 @@ if __name__ == '__main__':
 
     print("thres: ", thres)
     print("nu: ", nu)
-    for i in range(2,3):
+    for i in range(11,12):
         print("cycle:", i)
         mice_outliers(i)
         ele_outliers(i)
