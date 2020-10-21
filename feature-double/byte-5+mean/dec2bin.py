@@ -50,7 +50,7 @@ def main(num):
         temp_cols = [col_name + '-{}'.format(i) for i in range(4)]
         df[temp_cols] = df[col_name].apply(getBytes(32))
     df = df.drop(["srcPort", "dstPort", "first", "second", "third", "fourth", "fifth",
-                        "mean", "var", "min", "max"], axis=1)
+                        "mean", "var", "min", "max", "flowSize"], axis=1)
 
     print(df.shape)
     df.to_csv(saveName, index=False)

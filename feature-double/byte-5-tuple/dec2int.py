@@ -47,7 +47,11 @@ def main(num):
     DP_cols = ['DP%d' % i for i in range(2)]
     df[DP_cols] = df['dstPort'].apply(getBytes(16))
 
-    df = df.drop(["srcPort", "dstPort"], axis=1)
+    #first packet length cols
+    FL_cols = ['FL%d' % i for i in range(2)]
+    df[FL_cols] = df['length'].apply(getBytes(16))
+
+    df = df.drop(["srcPort", "dstPort", "length", "flowSize"], axis=1)
 
     print(df.shape)
     df.to_csv(saveName, index=False)

@@ -27,11 +27,6 @@ def main(num):
     print(protocolMap)
     df["protocol"] = df["protocol"].apply(lambda p: protocolMap[p])
 
-    #bit: number of bits, n: number to transfer
-    protocolMap = {p:i for i,p in enumerate(df["protocol"].unique())}
-    print(protocolMap)
-    getProtoBits = lambda p: pd.Series(list(('{0:0%db}'%3).format(protocolMap[p])))
-
     getBytes = lambda bits: lambda n: pd.Series(split_str(('{0:0%db}'%bits).format(int(n)), 8))
 
     #srcPort cols
@@ -42,7 +37,7 @@ def main(num):
     DP_cols = ['DP%d' % i for i in range(2)]
     df[DP_cols] = df['dstPort'].apply(getBytes(16))
 
-    df = df.drop(["srcPort", "dstPort", "length"], axis=1)
+    df = df.drop(["srcPort", "dstPort", "length", "flowSize"], axis=1)
 
     print(df.shape)
     df.to_csv(saveName, index=False)
