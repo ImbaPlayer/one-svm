@@ -70,8 +70,8 @@ def render_csv_row(timeInfo, pkt_sc, fh_csv):
         return False
     srcIP = ip_pkt_sc.src
     dstIP = ip_pkt_sc.dst
-    length = len(pkt_sc)
-    # length = ip_pkt_sc.len
+    # length = len(pkt_sc)
+    length = ip_pkt_sc.len
     #add features
     ip_ihl = ip_pkt_sc.ihl
     ip_tos = ip_pkt_sc.tos
@@ -174,4 +174,4 @@ if __name__ == '__main__':
 # python pcap2csv.py --pcap /data/xgr/sketch_data/testbed-12jun.pcap --csv test-feature.csv
 #pcapFilePath = '/data/sym/pcap_data/univ1_trace/univ1_pt18'
 #python pcap2csv.py --pcap /data/sym/pcap_data/univ1_trace/univ1_pt18 --csv test-feature.csv
-# python pcap2csv_add.py --pcap /data/xgr/sketch_data/caida_dirA/equinix-nyc.dirA.20190117-130000.UTC.anon.pcap --csv /data/sym/one-class-svm/data/offline-all-len/packet-level/caida-A-50W-0.csv
+# python pcap2csv_add.py --pcap /data/xgr/sketch_data/caida_dirA/equinix-nyc.dirA.20190117-130000.UTC.anon.pcap --csv /data/sym/one-class-svm/data/offline-all-len/packet-level/caida-A-50W-1.csv

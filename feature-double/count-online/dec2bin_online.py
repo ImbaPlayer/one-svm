@@ -13,10 +13,10 @@ def split_str(text, length):
 
 
 def main(num):
-    # fileName = "/data/sym/one-class-svm/data/online/dec-feature/caida-A-50W-{}.csv".format(num)
-    # saveName = "/data/sym/one-class-svm/data/online/bin-feature/caida-A-50W-{}.csv".format(num)
-    fileName = "1.csv"
-    saveName = "2.csv"
+    fileName = "/data/sym/one-class-svm/data/online/dec-feature/caida-A-50W-{}.csv".format(13)
+    saveName = "/data/sym/one-class-svm/data/online/bin-feature/caida-A-50W-{}.csv".format(13)
+    # fileName = "1.csv"
+    # saveName = "2.csv"
     df = pd.read_csv(fileName)
     # print(df)
     df["srcAddr1"], df["srcAddr2"], df["srcAddr3"], df["srcAddr4"] = df["srcIP"].str.split(".", 3).str
@@ -50,7 +50,7 @@ def main(num):
     temp_cols = ["udp_len" + '-{}'.format(i) for i in range(2)]
     df[temp_cols] = df["udp_len"].apply(getBytes(16))
 
-    df = df.drop(["srcPort", "dstPort", "tcp_window", "udp_len"], axis=1)
+    df = df.drop(["srcPort", "dstPort", "tcp_window", "udp_len", "flowSize"], axis=1)
 
     print(df.shape)
     df.to_csv(saveName, index=False)

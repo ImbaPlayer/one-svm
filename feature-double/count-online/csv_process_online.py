@@ -6,9 +6,9 @@ from datetime import datetime
 PACKET_NUMBER = 5
 
 def new_extract(num):
-    inputName = "/data/sym/one-class-svm/data/online/packet-level/caida-A-50W-{}.csv".format(num)
+    inputName = "/data/sym/one-class-svm/data/online/packet-level/caida-A-50W-{}.csv".format(1)
     # inputName = "original.csv"
-    saveName = "/data/sym/one-class-svm/data/online/dec-feature/caida-A-50W-{}.csv".format(num)
+    saveName = "/data/sym/one-class-svm/data/online/dec-feature/caida-A-50W-{}.csv".format(13)
     # saveName = "1.csv"
     #指定分隔符为/t
     # time srcIP srcPort dstIP dstPort protocol length
@@ -24,7 +24,7 @@ def new_extract(num):
     grouped=tcp.groupby(["srcIP", "srcPort", "dstIP", "dstPort", "protocol"])
     # print(grouped["length"])
     #计算数据包的数量
-    tcp["flowSize"] = grouped["length"].transform(sum)
+    tcp["flowSize"] = grouped["length"].transform(len)
 
     grouped=tcp.groupby(["srcIP", "srcPort", "dstIP", "dstPort", "protocol"])
     result = grouped.head(1)

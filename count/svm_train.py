@@ -111,7 +111,7 @@ if __name__ == '__main__':
     for i in range(1):
         print("cycle:", i)
         mice_outliers(i)
-        # ele_outliers(i)
+        ele_outliers(i)
     
     b = datetime.now()
     print("end time", b)

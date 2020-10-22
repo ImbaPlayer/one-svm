@@ -8,8 +8,8 @@ from datetime import datetime
 
 
 def main(num):
-    fileName = "/data/sym/one-class-svm/data/offline-all-len/dec-feature/caida-A-50W-{}.csv".format(num)
-    saveName = "/data/sym/one-class-svm/data/offline-all-len/bin-feature/caida-A-50W-{}.csv".format(num)
+    fileName = "/data/sym/one-class-svm/data/offline-all-len/dec-feature/caida-A-50W-{}.csv".format(1)
+    saveName = "/data/sym/one-class-svm/data/offline-all-len/bin-feature/caida-A-50W-{}.csv".format(1)
     # fileName = "1.csv"
     # saveName = "2.csv"
     df = pd.read_csv(fileName)

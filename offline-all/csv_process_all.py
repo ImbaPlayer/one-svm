@@ -6,9 +6,9 @@ from datetime import datetime
 PACKET_NUMBER = 5
 
 def new_extract(num):
-    inputName = "/data/sym/one-class-svm/data/offline-all-len/packet-level/caida-A-50W-{}.csv".format(num)
+    inputName = "/data/sym/one-class-svm/data/offline-all-len/packet-level/caida-A-50W-{}.csv".format(1)
     # inputName = "original.csv"
-    saveName = "/data/sym/one-class-svm/data/offline-all-len/dec-feature/caida-A-50W-{}.csv".format(num)
+    saveName = "/data/sym/one-class-svm/data/offline-all-len/dec-feature/caida-A-50W-{}.csv".format(1)
     # saveName = "1.csv"
     #指定分隔符为/t
     # time srcIP srcPort dstIP dstPort protocol length
