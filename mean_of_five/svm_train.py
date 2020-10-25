@@ -13,9 +13,10 @@ import sys
 thres = int(sys.argv[1])
 nu = float(sys.argv[2])
 # fit the model, mice: -1, ele: 1
-fileName1 = "/data/sym/one-class-svm/data/5+mean/dec-feature/caida-A-50W-{}.csv".format(0)
-fileName2 = "/data/sym/one-class-svm/data/5+mean/bin-feature/caida-A-50W-{}.csv".format(11)
 def mice_outliers(num):
+    num = 10
+    fileName1 = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/caida-A-50W-{}.csv".format(num)
+    fileName2 = "/data/sym/one-class-svm/data/mean_of_five/bin-feature/caida-A-50W-{}.csv".format(num)
     df = pd.read_csv(fileName1)
     dfb = pd.read_csv(fileName2)
     # dropCol = []
@@ -27,8 +28,8 @@ def mice_outliers(num):
     
     #conver to matrix
     X = dfb.values
-    # X[X=='0'] = -1
-    # X[X=='1'] = 1
+    X[X=='0'] = -1
+    X[X=='1'] = 1
     yr = df['flowSize']
 
     # thres = int(sys.argv[1])
@@ -62,13 +63,16 @@ def mice_outliers(num):
 
 # fit the model, mice: 1, ele: -1
 def ele_outliers(num):
+    num = 10
+    fileName1 = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/caida-A-50W-{}.csv".format(num)
+    fileName2 = "/data/sym/one-class-svm/data/mean_of_five/bin-feature/caida-A-50W-{}.csv".format(num)
     df = pd.read_csv(fileName1)
     dfb = pd.read_csv(fileName2)
     
     #conver to matrix
     X = dfb.values
-    # X[X=='0'] = -1
-    # X[X=='1'] = 1
+    X[X=='0'] = -1
+    X[X=='1'] = 1
     yr = df['flowSize']
 
     # thres = int(sys.argv[1])
