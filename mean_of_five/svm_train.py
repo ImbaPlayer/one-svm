@@ -14,9 +14,11 @@ thres = int(sys.argv[1])
 nu = float(sys.argv[2])
 # fit the model, mice: -1, ele: 1
 def mice_outliers(num):
-    num = 10
-    fileName1 = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/caida-A-50W-{}.csv".format(num)
-    fileName2 = "/data/sym/one-class-svm/data/mean_of_five/bin-feature/caida-A-50W-{}.csv".format(num)
+    # num = 10
+    fileName1 = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/caida-B-50W-5-{}.csv".format(num)
+    fileName2 = "/data/sym/one-class-svm/data/mean_of_five/bin-feature/caida-B-50W-5-{}.csv".format(num)
+    fileName1 = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/univ1-50W-{0}-{1}.csv".format(5, num)
+    fileName2 = "/data/sym/one-class-svm/data/mean_of_five/bin-feature/univ1-50W-{0}-{1}.csv".format(5, num)
     df = pd.read_csv(fileName1)
     dfb = pd.read_csv(fileName2)
     # dropCol = []
@@ -63,9 +65,11 @@ def mice_outliers(num):
 
 # fit the model, mice: 1, ele: -1
 def ele_outliers(num):
-    num = 10
-    fileName1 = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/caida-A-50W-{}.csv".format(num)
-    fileName2 = "/data/sym/one-class-svm/data/mean_of_five/bin-feature/caida-A-50W-{}.csv".format(num)
+    # num = 10
+    fileName1 = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/caida-B-50W-5-{}.csv".format(num)
+    fileName2 = "/data/sym/one-class-svm/data/mean_of_five/bin-feature/caida-B-50W-5-{}.csv".format(num)
+    # fileName1 = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/univ1-50W-{0}-{1}.csv".format(5, num)
+    # fileName2 = "/data/sym/one-class-svm/data/mean_of_five/bin-feature/univ1-50W-{0}-{1}.csv".format(5, num)
     df = pd.read_csv(fileName1)
     dfb = pd.read_csv(fileName2)
     
@@ -110,7 +114,7 @@ if __name__ == '__main__':
 
     print("thres: ", thres)
     print("nu: ", nu)
-    for i in range(1):
+    for i in range(1,2):
         print("cycle:", i)
         mice_outliers(i)
         ele_outliers(i)

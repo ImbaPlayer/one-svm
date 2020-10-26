@@ -8,8 +8,10 @@ from datetime import datetime
 
 
 def main(num):
-    fileName = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/caida-A-50W-{}.csv".format(10)
-    saveName = "/data/sym/one-class-svm/data/mean_of_five/bin-feature/caida-A-50W-{}.csv".format(10)
+    fileName = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/caida-B-50W-5-{}.csv".format(num)
+    saveName = "/data/sym/one-class-svm/data/mean_of_five/bin-feature/caida-B-50W-5-{}.csv".format(num)
+    # fileName = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/univ1-50W-{0}-{1}.csv".format(5, num)
+    # saveName = "/data/sym/one-class-svm/data/mean_of_five/bin-feature/univ1-50W-{0}-{1}.csv".format(5, num)
     df = pd.read_csv(fileName)
     # print(df)
     df["srcAddr1"], df["srcAddr2"], df["srcAddr3"], df["srcAddr4"] = df["srcIP"].str.split(".", 3).str
@@ -72,7 +74,7 @@ def main(num):
 if __name__ == '__main__':
     a = datetime.now()
     print("start time", a)
-    for i in range(1):
+    for i in range(1,2):
         main(i)
         print("finish", i)
     b = datetime.now()

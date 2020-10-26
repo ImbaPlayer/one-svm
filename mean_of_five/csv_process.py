@@ -6,8 +6,10 @@ from datetime import datetime
 PACKET_NUMBER = 5
 
 def new_extract(num):
-    inputName = "/data/sym/one-class-svm/data/mean_of_five/packet-level/caida-A-50W-{}.csv".format(num)
-    saveName = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/caida-A-50W-{0}-{1}.csv".format(PACKET_NUMBER, num)
+    inputName = "/data/sym/one-class-svm/data/mean_of_five/packet-level/caida-B-50W-{}.csv".format(num)
+    saveName = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/caida-B-50W-{0}-{1}.csv".format(PACKET_NUMBER, num)
+    # inputName = "/data/sym/one-class-svm/data/mean_of_five/packet-level/univ1-50W-{}.csv".format(num)
+    # saveName = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/univ1-50W-{0}-{1}.csv".format(PACKET_NUMBER, num)
     #指定分隔符为/t
     # time srcIP srcPort dstIP dstPort protocol length
     col_names = ["time", "srcIP", "srcPort", "dstIP", "dstPort", "protocol", "length"]
@@ -57,7 +59,7 @@ def new_extract(num):
 if __name__ == '__main__':
     a = datetime.now()
     print("start time", a)
-    for i in range(10):
+    for i in range(1,10):
         new_extract(i)
         print("finish", i)
     b = datetime.now()
