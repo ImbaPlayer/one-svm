@@ -178,5 +178,38 @@ weighted avg       0.94      0.91      0.92     13798
 end time 2020-10-26 00:03:49.177412
 duration 599
 
+thres:  20000
+nu:  0.1
+cycle: 0
+original mice count:  66641
+original elephant count:  2346
+[[5084 8247]
+ [  58  409]]
+              precision    recall  f1-score   support
+
+          -1       0.99      0.38      0.55     13331
+           1       0.05      0.88      0.09       467
+
+    accuracy                           0.40     13798
+   macro avg       0.52      0.63      0.32     13798
+weighted avg       0.96      0.40      0.53     13798
+
+
+original mice count:  66641
+original elephant count:  2346
+[[  428    39]
+ [ 1391 11940]]
+              precision    recall  f1-score   support
+
+          -1       0.24      0.92      0.37       467
+           1       1.00      0.90      0.94     13331
+
+    accuracy                           0.90     13798
+   macro avg       0.62      0.91      0.66     13798
+weighted avg       0.97      0.90      0.92     13798
+
+end time 2020-10-26 00:19:58.094763
+duration 724
+
 ```
 

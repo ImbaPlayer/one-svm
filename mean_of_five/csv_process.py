@@ -3,11 +3,11 @@ from datetime import datetime
 
 # inputName = "/data/xgr/sketch_data/equinix-nyc.dirB.20190117-140000.UTC.anon.pcap"
 
-PACKET_NUMBER = 10
+PACKET_NUMBER = 5
 
 def new_extract(num):
     inputName = "/data/sym/one-class-svm/data/mean_of_five/packet-level/caida-A-50W-{}.csv".format(num)
-    saveName = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/caida-A-50W-{}.csv".format(PACKET_NUMBER)
+    saveName = "/data/sym/one-class-svm/data/mean_of_five/dec-feature/caida-A-50W-{0}-{1}.csv".format(PACKET_NUMBER, num)
     #指定分隔符为/t
     # time srcIP srcPort dstIP dstPort protocol length
     col_names = ["time", "srcIP", "srcPort", "dstIP", "dstPort", "protocol", "length"]
@@ -19,8 +19,11 @@ def new_extract(num):
     tcp = tcp.drop(["time"], axis=1)
     grouped=tcp.groupby(["srcIP", "srcPort", "dstIP", "dstPort", "protocol"])
     result_col_names = ["srcIP", "srcPort", "dstIP", "dstPort", "protocol", 
-                        "first", "second", "third", "fourth", "fifth","sixth","seventh","eighth","nineth","tenth",
+                        "first", "second", "third", "fourth", "fifth",
                         "mean", "var", "min", "max", "flowSize"]
+    # result_col_names = ["srcIP", "srcPort", "dstIP", "dstPort", "protocol", 
+    #                     "first", "second", "third", "fourth", "fifth","sixth","seventh","eighth","nineth","tenth",
+    #                     "mean", "var", "min", "max", "flowSize"]
     new_df = pd.DataFrame(columns=result_col_names)
     for key,group in grouped:
         # print(key)
@@ -54,7 +57,7 @@ def new_extract(num):
 if __name__ == '__main__':
     a = datetime.now()
     print("start time", a)
-    for i in range(1):
+    for i in range(10):
         new_extract(i)
         print("finish", i)
     b = datetime.now()
