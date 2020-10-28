@@ -74,7 +74,7 @@ def main(num):
 if __name__ == '__main__':
     a = datetime.now()
     print("start time", a)
-    for i in range(1,2):
+    for i in range(2,9):
         main(i)
         print("finish", i)
     b = datetime.now()
